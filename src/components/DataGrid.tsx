@@ -6,10 +6,13 @@ import {
   TableContainer, 
   TableHead, 
   TableRow, 
-  Typography 
+  Typography,
+  Tooltip
 } from '@mui/material';
 import { format } from 'date-fns';
 import { tr } from 'date-fns/locale';
+import CheckCircleIcon from '@mui/icons-material/CheckCircle';
+import CancelIcon from '@mui/icons-material/Cancel';
 import { DataGridProps } from '../types/props';
 
 const DataGrid: React.FC<DataGridProps> = ({ data, onRowClick }) => {
@@ -20,7 +23,7 @@ const DataGrid: React.FC<DataGridProps> = ({ data, onRowClick }) => {
         color="text.secondary" 
         sx={{ textAlign: 'center', py: 3 }}
       >
-        Henüz kayıt bulunmamaktadır.
+        There is no data.
       </Typography>
     );
   }
@@ -33,7 +36,7 @@ const DataGrid: React.FC<DataGridProps> = ({ data, onRowClick }) => {
             <TableCell>Code</TableCell>
             <TableCell>Name</TableCell>
             <TableCell>Assign Date</TableCell>
-            <TableCell>Is Updatable?</TableCell>
+            <TableCell align="center">Is Updatable?</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -54,7 +57,17 @@ const DataGrid: React.FC<DataGridProps> = ({ data, onRowClick }) => {
               <TableCell>
                 {format(new Date(row.assignDate), 'dd/MM/yyyy', { locale: tr })}
               </TableCell>
-              <TableCell>{row.isUpdatable ? 'Evet' : 'Hayır'}</TableCell>
+              <TableCell align="center">
+                {row.isUpdatable ? (
+                  <Tooltip title="Editable">
+                    <CheckCircleIcon color="success" />
+                  </Tooltip>
+                ) : (
+                  <Tooltip title="Do not editable">
+                    <CancelIcon color="error" />
+                  </Tooltip>
+                )}
+              </TableCell>
             </TableRow>
           ))}
         </TableBody>

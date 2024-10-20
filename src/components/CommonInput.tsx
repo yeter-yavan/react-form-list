@@ -19,7 +19,7 @@ const CommonInput: React.FC<CommonInputProps> = ({
       name={name}
       control={control}
       rules={{
-        required: required ? 'Bu alan zorunludur' : false,
+        required: required ? 'This field is required' : false,
         pattern: pattern,
         maxLength: {
           value: maxLength || 524288,

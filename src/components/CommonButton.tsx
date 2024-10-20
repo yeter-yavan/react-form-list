@@ -1,16 +1,6 @@
 import React from 'react';
 import { Button, Tooltip } from '@mui/material';
-import { SvgIconComponent } from '@mui/icons-material';
-
-interface CommonButtonProps {
-  label: string;
-  onClick: () => void;
-  startIcon?: React.ReactElement<SvgIconComponent>;
-  color?: 'primary' | 'secondary' | 'error' | 'warning' | 'info' | 'success';
-  disabled?: boolean;
-  tooltip?: string;
-  variant?: 'contained' | 'outlined' | 'text';
-}
+import { CommonButtonProps } from '../types/props';
 
 const CommonButton: React.FC<CommonButtonProps> = ({
   label,

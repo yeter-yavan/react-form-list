@@ -1,19 +1,12 @@
 import React from 'react';
-import { Control, Controller } from 'react-hook-form';
+import { Controller } from 'react-hook-form';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { tr } from 'date-fns/locale';
 import { Tooltip } from '@mui/material';
+import { DatePickerInputProps } from '../types/props';
 
-interface DatePickerInputProps {
-  name: string;
-  label: string;
-  control: Control<any>;
-  required?: boolean;
-  disabled?: boolean;
-  tooltip?: string;
-}
 
 const DatePickerInput: React.FC<DatePickerInputProps> = ({
   name,

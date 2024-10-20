@@ -8,7 +8,7 @@ import { tr } from 'date-fns/locale';
 import { ErrorBoundary } from 'react-error-boundary';
 import { SnackbarProvider } from 'notistack';
 import MainForm from './components/MainForm';
-import ErrorFallback from './components/ErrorFallBack';
+import ErrorFallback from './components/ErrorFallback';
 
 // Material UI style
 const theme = createTheme({
@@ -27,11 +27,6 @@ const theme = createTheme({
     fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif',
   },
   components: {
-    MuiTextField: {
-      defaultProps: {
-        size: 'small',
-      },
-    },
     MuiButton: {
       styleOverrides: {
         root: {

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { Box, Checkbox, FormControlLabel, Paper, Typography } from '@mui/material';
+import { Box, Checkbox, FormControlLabel, Grid2 as Grid, Paper, Typography } from '@mui/material';
 import { Save, Clear } from '@mui/icons-material';
 import { useDispatch, useSelector } from 'react-redux';
 import { addItem, updateItem } from '../store/dataSlice';
@@ -36,20 +36,20 @@ const MainForm: React.FC = () => {
       if (selectedIndex !== null) {
         dispatch(updateItem({ index: selectedIndex, item: formattedData }));
         showToast({ 
-          message: 'Kayıt başarıyla güncellendi', 
+          message: 'Data updated successfully', 
           type: 'success' 
         });
       } else {
         dispatch(addItem(formattedData));
         showToast({ 
-          message: 'Yeni kayıt başarıyla eklendi', 
+          message: 'Data added successfully', 
           type: 'success' 
         });
       }
       handleClean();
     } catch (error) {
       showToast({ 
-        message: 'İşlem sırasında bir hata oluştu', 
+        message: 'An error occurred, please contact support', 
         type: 'error' 
       });
     }
@@ -74,88 +74,95 @@ const MainForm: React.FC = () => {
     setValue('isUpdatable', item.isUpdatable);
     setSelectedIndex(index);
   };
-
   return (
-    <Box>
-      <Paper elevation={3} sx={{ p: 3, mb: 3 }}>
-        <Typography variant="h6" gutterBottom>
-          Veri Giriş Formu
-        </Typography>
-        
-        <form onSubmit={handleSubmit(onSubmit)}>
-          <Box sx={{ display: 'grid', gap: 2 }}>
-            <CommonInput
-              name="code"
-              label="Code"
-              control={control}
-              required
-              maxLength={5}
-              pattern={{
-                value: /^[A-Za-z]{2}[0-9]{3}$/,
-                message: 'İlk 2 karakter harf, son 3 karakter rakam olmalıdır'
-              }}
-              tooltip="İlk 2 karakter harf, son 3 karakter rakam olmalıdır"
-            />
-
-            <CommonInput
-              name="name"
-              label="Name"
-              control={control}
-              required
-              maxLength={12}
-            />
-
-            <DatePickerInput
-              name="assignDate"
-              label="Assign Date"
-              control={control}
-              required
-              tooltip="Tarih seçiniz"
-            />
-
-            <FormControlLabel
-              control={
-                <Checkbox
-                  checked={watch('isUpdatable')}
-                  onChange={(e) => setValue('isUpdatable', e.target.checked)}
+    <Box sx={{ p: 3 }}>
+      <Grid container spacing={3}>
+        {/* Form Section */}
+        <Grid size={{ xs: 12, md: 4 }}>
+          <Paper elevation={3} sx={{ p: 3 }}>
+            <Typography variant="h6" gutterBottom>
+              {selectedIndex !== null ? 'Update Data' : 'Add Data'}
+            </Typography>
+            
+            <form onSubmit={handleSubmit(onSubmit)}>
+              <Box sx={{ display: 'grid', gap: 2 }}>
+                <CommonInput
+                  name="code"
+                  label="Code"
+                  control={control}
+                  required
+                  maxLength={5}
+                  pattern={{
+                    value: /^[A-Za-z]{2}[0-9]{3}$/,
+                    message: 'The first 2 characters must be letters, and the last 3 must be digits'
+                  }}
+                  tooltip="The first 2 characters must be letters, and the last 3 must be digits"
                 />
-              }
-              label="Is Updatable?"
+
+                <CommonInput
+                  name="name"
+                  label="Name"
+                  control={control}
+                  required
+                  maxLength={12}
+                />
+
+                <DatePickerInput
+                  name="assignDate"
+                  label="Assign Date"
+                  control={control}
+                  required
+                  tooltip="Select a date"
+                />
+
+                <FormControlLabel
+                  control={
+                    <Checkbox
+                      checked={watch('isUpdatable')}
+                      onChange={(e) => setValue('isUpdatable', e.target.checked)}
+                    />
+                  }
+                  label="Is Updatable?"
+                />
+
+                <Box sx={{ display: 'flex', gap: 2, mt: 2 }}>
+                <CommonButton
+                  label={selectedIndex !== null ? 'Update' : 'Save'}
+                  onClick={handleSubmit(onSubmit)}
+                  startIcon={<Save />}
+                  color="primary"
+                  variant="contained"
+                  tooltip={selectedIndex !== null ? 'Update Record' : 'Add New Record'}
+                />
+
+                <CommonButton
+                  label="Clean"
+                  onClick={handleClean}
+                  startIcon={<Clear />}
+                  color="secondary"
+                  variant="outlined"
+                  tooltip="Clear Form"
+                />
+                </Box>
+              </Box>
+            </form>
+          </Paper>
+        </Grid>
+
+        {/* DataGrid Section */}
+        <Grid size={{ xs: 12, md: 8 }}>
+          <Paper elevation={3} sx={{ p: 3 }}>
+            <Typography variant="h6" gutterBottom>
+              Data List
+            </Typography>
+            
+            <DataGrid 
+              data={items} 
+              onRowClick={handleRowClick} 
             />
-
-            <Box sx={{ display: 'flex', gap: 2, mt: 2 }}>
-              <CommonButton
-                label={selectedIndex !== null ? 'Update' : 'Save'}
-                onClick={handleSubmit(onSubmit)}
-                startIcon={<Save />}
-                color="primary"
-                variant="contained"
-                tooltip={selectedIndex !== null ? 'Kaydı Güncelle' : 'Yeni Kayıt Ekle'}
-              />
-
-              <CommonButton
-                label="Clean"
-                onClick={handleClean}
-                startIcon={<Clear />}
-                color="secondary"
-                variant="outlined"
-                tooltip="Formu Temizle"
-              />
-            </Box>
-          </Box>
-        </form>
-      </Paper>
-
-      <Paper elevation={3} sx={{ p: 3 }}>
-        <Typography variant="h6" gutterBottom>
-          Kayıt Listesi
-        </Typography>
-        
-        <DataGrid 
-          data={items} 
-          onRowClick={handleRowClick} 
-        />
-      </Paper>
+          </Paper>
+        </Grid>
+      </Grid>
     </Box>
   );
 };

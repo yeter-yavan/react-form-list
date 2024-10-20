@@ -18,7 +18,7 @@ const ErrorFallback: React.FC<ErrorFallbackProps> = ({ error, resetErrorBoundary
         }}
       >
         <Typography variant="h4" color="error" gutterBottom>
-          Oops! Bir şeyler ters gitti.
+          Oops! There is something wrong
         </Typography>
         
         <Typography variant="body1" color="text.secondary" gutterBottom>
@@ -31,7 +31,7 @@ const ErrorFallback: React.FC<ErrorFallbackProps> = ({ error, resetErrorBoundary
           onClick={resetErrorBoundary}
           startIcon={<RefreshRounded />}
         >
-          Yeniden Dene
+          Retry again
         </Button>
       </Box>
     </Container>
