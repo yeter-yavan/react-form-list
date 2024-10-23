@@ -1,50 +1,64 @@
-# React + TypeScript + Vite
+# Data Management Application
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## 🎯 Project Overview
+This project is a single-page web application that allows users to manage data entries through a form interface and display them in a data grid. Users can create, update, and view records with specific validation rules and interactive features.
 
-Currently, two official plugins are available:
+## 🚀 Features
+- Form with 4 input fields:
+  - Code (pattern: 2 letters + 3 numbers)
+  - Name (max 12 characters)
+  - Assign Date (DD/MM/YYYY format)
+  - Is Updatable? (checkbox)
+- Interactive data grid for displaying entries
+- Save/Update and Clean functionality
+- Row selection and update capabilities
+- Conditional row styling and interaction
+- Generic React components for inputs and buttons
+- Comprehensive form validation
+- Modern UI/UX design
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🛠 Tech Stack
+- **React**: Frontend library
+- **TypeScript**: Type-safe development
+- **Redux Toolkit & RTK Query**: State management and API calls
+- **React Hook Form**: Form handling
+- **Material UI**: UI components and styling
+- **React Hooks**: State and lifecycle management
 
-## Expanding the ESLint configuration
+## 🏗 Project Structure
+```
+src/
+├── components/
+│   ├── CommonButton
+│   ├── CommonInput
+│   ├── DataGrid
+│   ├── DatePickerInput
+│   ├── ErrorFallback
+│   └── MainForm
+├── hooks/
+├── store/
+│   ├── dataSlice
+│   └── store
+├── types/
+├── utils/
+└── App.tsx
+```
+## 🚦 Getting Started
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
-
-- Configure the top-level `parserOptions` property like this:
-
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+1. Clone the repository:
+```bash
+git clone <repository-url>
 ```
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
-
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
-
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
+2. Install dependencies:
+```bash
+pnpm install
 ```
+
+3. Start the development server:
+```bash
+pnpm run dev
+```
+
+## 📄 License
+This project is licensed under the MIT License - see the LICENSE file for details.
